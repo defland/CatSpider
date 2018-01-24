@@ -29,5 +29,11 @@ by yg
 
 """
 
+# 队列管理
+
+from core import xqueue
 
 
+if __name__ == "__main__":
+
+    print("test")
