@@ -60,6 +60,7 @@ class Xqueue:
             return self.__redis_r.blpop(self.key, timeout=timeout)
         else:
             return self.__redis_r.lpop(self.key)
+
     def get_no_wait(self):  # 顶部删除
         return self.get(block=False)
 
@@ -67,9 +68,12 @@ class Xqueue:
         return self.__redis_r.llen(self.key)  # 大小，高度
 
     def show(self):
-        print(self.items)
+        for key in self.__redis_r.scan_iter(self.key):
+            # print the key
+            print(key)
 
 
-x = Xqueue('test')
+if __name__ == "__main__":
 
-print(x.size())
+    x = Xqueue('test')
+    print(x.size())
