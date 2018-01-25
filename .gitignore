@@ -8,6 +8,8 @@ __pycache__/
 # virtualenv
 env/
 virtualenv/
+ven2.7/
+env2.7/
 
 # C extensions
 *.so

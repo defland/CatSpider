@@ -1,3 +1,3 @@
 # coding:utf-8
 
-__all__ = ['setting', 'xqueue', ]
+__all__ = ['setting', 'xqueue', 'xdownloader', 'xanalyzer', 'xitem']
