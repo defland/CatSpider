@@ -31,7 +31,7 @@ by yg
 
 # 队列管理
 
-from core import xqueue
+from core import *
 
 
 if __name__ == "__main__":

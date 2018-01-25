@@ -14,7 +14,7 @@ by yg
 
 """
 
-import setting
+from . import setting
 
 
 class Queue:
@@ -42,4 +42,3 @@ class Queue:
 
     def show(self):
         print(self.items)
-
