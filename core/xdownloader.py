@@ -70,6 +70,13 @@ class Xdownloader:
                 proxies = {'http': http_str}
                 print(http_str)
 
+        if self.url is None or \
+                self.url == '' or \
+                type(self.url) != str:
+            return {'status': False,
+                    'url': self.url,
+                    'error': 'No has url or error url type'
+                    }
         # 开始下载
         try:
             # GET方法
@@ -86,10 +93,12 @@ class Xdownloader:
 
         except Exception as e:
             # raise e
-            print('Connection error %s with %s', (self.url, ip_dict))
-            Xdownloader.ip_list.remove(ip_dict)  # 删除失效的代理ip
-            print('The invalid IP address has been deleted.')
-            print(Xdownloader.ip_list, len(Xdownloader.ip_list))
+            print('Connection error ', self.url)
+            if Xdownloader.ip_proxies:
+                print('The invalid IP address has been deleted. %s' % ip_dict)
+                Xdownloader.ip_list.remove(ip_dict)  # 删除失效的代理ip
+
+                print(Xdownloader.ip_list, len(Xdownloader.ip_list))
             return {'status': False,
                     'url': self.url,
                     'exception': e,
@@ -97,8 +106,8 @@ class Xdownloader:
                     }
 
         # print(responese_obj)
-        print(responese_obj.request.headers)
-        print(responese_obj.headers)
+        # print(responese_obj.request.headers)
+        # print(responese_obj.headers)
         # print(responese_obj.url)
         # print(responese_obj.text)
         return {'status': True,

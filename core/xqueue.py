@@ -19,14 +19,14 @@ import setting
 import redis
 
 
-class Xqueue:
+class CloudXqueue:
     """
     1、增删改查
     2、是否采用Redis存储
     3、默认采用广度优先的队列,新添加的url放入queue尾部
     """
 
-    def __init__(self, queue_name, namespace='Xqueue', **redis_kwargs):
+    def __init__(self, queue_name, namespace='CloudXqueue', **redis_kwargs):
         self.use_redis = setting.USE_REDIS
         # reids queue namespace
         self.key = '%s:%s' % (namespace, queue_name)
@@ -59,7 +59,7 @@ class Xqueue:
         if block:
             return self.__redis_r.blpop(self.key, timeout=timeout)
         else:
-            return self.__redis_r.lpop(self.key)
+            return (self.key, self.__redis_r.lpop(self.key))
 
     def get_no_wait(self):  # 顶部删除
         return self.get(block=False)
@@ -73,7 +73,28 @@ class Xqueue:
             print(key)
 
 
+class LocalXqueue:
+
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):  # 为空
+        return self.items == []
+
+    def enqueue(self, item):  # 顶部新增
+        self.items.insert(0, item)
+
+    def dequeue(self):  # 顶部删除
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)  # 大小，高度
+
+    def show(self):
+        print(self.items)
+
+
 if __name__ == "__main__":
 
-    x = Xqueue('test')
+    x = CloudXqueue('test')
     print(x.size())

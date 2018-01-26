@@ -11,8 +11,6 @@ version v0.1
     - 数据的清洗(抓取出信息出来)
     - 数据存入
 
-- 清洗后的数据存储
-    - 保存到数据库
 
 
 by yg
@@ -20,3 +18,21 @@ by yg
 
 """
 
+class Xanalyzer:
+    """
+    提取数据
+    """
+
+    def __init__(self,respnese=None):
+        pass
+
+    def start_clear(self, response=None):
+
+        # 提取数据
+        # 去重
+        # 新的url放回去url队列
+        # 清洗出来数据，return 一个字典
+
+        pass
+
+        return {"data":'','url':''}

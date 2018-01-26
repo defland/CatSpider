@@ -36,4 +36,34 @@ from core import *
 
 if __name__ == "__main__":
 
-    print("test")
+    # MVP版本
+    # 串联整个工作流
+
+    # frist url放入云队列
+    # 开始下载器执行
+    # 放入本队队列
+    # 分析器取出分析内容(新的url、清洗出来的内容return、去重)
+    # 清洗出来的内容保存到本地或者云端
+
+    # first url
+
+    clqueue = xqueue.CloudXqueue('FEIXIAOHAO')
+
+    clqueue.insert('http://www.feixiaohao.com')
+    clqueue.insert('http://looncode.com')
+
+    # start download
+
+    # print("get url from CloudXqueue:", clqueue.get_no_wait())
+    # print("get url from CloudXqueue:", clqueue.get())
+
+    dwer = xdownloader.Xdownloader(url=clqueue.get()[1])
+    respnese_data = dwer.start_download()
+
+    print(respnese_data)
+
+    # # start data clear
+    # xclear = xanalyzer.Xanalyzer(respnese_data)
+    # xclear.start_clear()
+
+    # # start data storage
