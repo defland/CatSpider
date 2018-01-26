@@ -19,6 +19,7 @@ DOWNLOADER_DICT = {
     'ROTARY_HEAD': True,  # 头部轮转
     'DOWNLOAD_DELAY': False,  # 延迟下载
     'IP_PROXIES': True,  # 是否启用IP代理访问
+    'IP_OVERDUE': 1000,  # ip代理使用多少次后刷新获取新的ip
     'ASYNCHROMOUS': True,  # 异步执行
     'TIMEOUT': (60, 60),  # 下载超时时间
 }

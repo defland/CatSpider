@@ -31,8 +31,9 @@ class Xdownloader:
     """
 
     # use for ip proxies
-    ip_list = []
+    ip_list = []  # 存储代理ip
     ip_proxies = setting.DOWNLOADER_DICT.get('IP_PROXIES')  # 是否启用IP代理
+    ip_overdue = setting.DOWNLOADER_DICT.get('IP_OVERDUE')  # 过期次数
 
     def __init__(
         self,
@@ -55,8 +56,21 @@ class Xdownloader:
         self.rotary_head = setting.DOWNLOADER_DICT.get(
             'ROTARY_HEAD')  # 是否启用头部轮转
 
+        self.use_proxy = {}  # 记录单个request使用的ip代理
+
     def start_download(self):
 
+        # 是否启用给代理
+        proxies = None
+        if Xdownloader.ip_proxies:
+            ip_dict = Xdownloader.add_ip_proxies()
+            if ip_dict != {}:
+                http_str = "http://%s:%s/" % (ip_dict.get('ip'),
+                                              ip_dict.get('port'))
+                proxies = {'http': http_str}
+                print(http_str)
+
+        # 开始下载
         try:
             # GET方法
             responese_obj = requests.request(
@@ -66,13 +80,16 @@ class Xdownloader:
                 headers=self.add_useragent() if self.rotary_head else {},
                 cookies=self.cookies,
                 allow_redirects=True,
-                proxies=Xdownloader.add_ip_proxies() if Xdownloader.ip_proxies else None,
+                proxies=proxies,
                 timeout=self.timeout
             )
 
         except Exception as e:
             # raise e
-            print('Connection error %s', self.url)
+            print('Connection error %s with %s', (self.url, ip_dict))
+            Xdownloader.ip_list.remove(ip_dict)  # 删除失效的代理ip
+            print('The invalid IP address has been deleted.')
+            print(Xdownloader.ip_list, len(Xdownloader.ip_list))
             return {'status': False,
                     'url': self.url,
                     'exception': e,
@@ -93,7 +110,9 @@ class Xdownloader:
     @staticmethod
     def add_ip_proxies():
         # 调用免费ip代理
-        if Xdownloader.ip_proxies and Xdownloader.ip_list == []:
+
+        #
+        if Xdownloader.ip_overdue == 0 or Xdownloader.ip_list == []:
             # first get ip list
 
             ip_ojb = IpSpiders()
@@ -101,20 +120,18 @@ class Xdownloader:
             print(ip_list)
             Xdownloader.ip_list = ip_list
             choice_ip = random.choice(Xdownloader.ip_list)
-            http_str = "http://%s:%s/" % (choice_ip.get('ip'),
-                                          choice_ip.get('port'))
-            print http_str
-            return {"http": http_str}
+            Xdownloader.ip_overdue -= 1  # 使用寿命-1
+
+            return choice_ip
+
         elif Xdownloader.ip_list != []:
 
             choice_ip = random.choice(Xdownloader.ip_list)
-            http_str = "http://%s:%s/" % (choice_ip.get('ip'),
-                                          choice_ip.get('port'))
-            print http_str
-            return {"http": http_str}
+            Xdownloader.ip_overdue -= 1  # 使用寿命-1
+            return choice_ip
         else:
 
-            return None
+            return {}
 
     def add_cookies(self, cookies):
 
@@ -131,7 +148,7 @@ if __name__ == "__main__":
 
     x = Xdownloader(url=r'http://looncode.com')
     y = Xdownloader(url=r'https://baidu.com')
-    z = Xdownloader(url=r'https://google.com')
+    z = Xdownloader(url=r'https://feixiaohao.com')
     x.start_download()
     y.start_download()
     z.start_download()
