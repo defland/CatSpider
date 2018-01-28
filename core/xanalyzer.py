@@ -18,12 +18,13 @@ by yg
 
 """
 
+
 class Xanalyzer:
     """
     提取数据
     """
 
-    def __init__(self,respnese=None):
+    def __init__(self, respnese=None):
         pass
 
     def start_clear(self, response=None):
@@ -35,4 +36,4 @@ class Xanalyzer:
 
         pass
 
-        return {"data":'','url':''}
+        return {"data": '', 'url': ''}

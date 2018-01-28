@@ -61,9 +61,13 @@ if __name__ == "__main__":
     respnese_data = dwer.start_download()
 
     print(respnese_data)
+    print(respnese_data.get('responese').text)
+
 
     # # start data clear
     # xclear = xanalyzer.Xanalyzer(respnese_data)
     # xclear.start_clear()
 
     # # start data storage
+
+

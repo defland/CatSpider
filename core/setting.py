@@ -44,3 +44,18 @@ USER_AGENT_LIST = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML, like Gecko) Chrome/19.0.1036.7 Safari/535.20",
     "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 ]
+
+
+# xstorage DB setting
+DB_USE = {
+
+    'NOSQL': True,
+    'SQL': False
+}
+
+# NOSQL SETTING
+MONGODB_DICT = {
+
+    'url': 'mongodb://user12345:foobar@localhost:27017'
+
+}
