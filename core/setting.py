@@ -59,3 +59,10 @@ MONGODB_DICT = {
     'url': 'mongodb://user12345:foobar@localhost:27017'
 
 }
+
+# SQL address and password
+SQL_DICT = {
+
+    'URL': r'"postgres://dbusername:dbpassword@host:port/dbname"'
+
+}
