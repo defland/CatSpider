@@ -2,7 +2,9 @@
 
 Python编写的异步+分布式+通用mini爬虫，可以支持爬取队列、Request定制、IP代理访问和页面抓取、Response数据清洗、本地化 存储等功能。
 
-# CatSpider构成
+# CatSpider 工作流
+
+![9Wf8n1.png](https://s1.ax1x.com/2018/03/11/9Wf8n1.png)
 
 - 爬虫队列 queue
 - Request请求、页面下载器(改用gevent+request异步请求)
