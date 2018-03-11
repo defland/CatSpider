@@ -4,7 +4,7 @@ Python编写的异步+分布式+通用mini爬虫，可以支持爬取队列、Re
 
 # CatSpider 工作流
 
-[![9Wf8n1.md.png](https://s1.ax1x.com/2018/03/11/9Wf8n1.md.png)](https://imgchr.com/i/9Wf8n1)
+[![9Wf8n1.md.png](https://s1.ax1x.com/2018/03/11/9Wf8n1.md.png)](https://imgchr.com/i/9Wf8n1){:height="40%" width="40%"}
 
 - 爬虫队列 queue
 - Request请求、页面下载器(改用gevent+request异步请求)
