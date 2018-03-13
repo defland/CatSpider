@@ -88,6 +88,6 @@ V2： (计划中)
 
 # 基于CatSpider的Demo
 
-- 囤好币(币种的行情、背景信息)
+- 囤好币(币种的行情、背景信息) https://github.com/defland/tunhaobi (5%进度)
 
 
